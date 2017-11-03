@@ -12,6 +12,14 @@
         <servlet-name>demo</servlet-name>
         <url-pattern>/demo</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>count</servlet-name>
+        <servlet-class>myapp.CountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>count</servlet-name>
+        <url-pattern>/count</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

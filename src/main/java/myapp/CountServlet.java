@@ -16,34 +16,20 @@
 
 package myapp;
 
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DemoServlet extends HttpServlet {
-  @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-    resp.setContentType("text/plain");
+public class CountServlet extends HttpServlet {
+    int next = 1000;
 
-    Moshi moshi = new Moshi.Builder().build();
-    JsonAdapter<Greeting> jsonAdapter = moshi.adapter(Greeting.class);
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        resp.setContentType("text/plain");
 
-
-    Greeting greeting = new Greeting();
-    greeting.name = "Bowie";
-    greeting.allowance = 500;
-    String json = jsonAdapter.toJson(greeting);
-
-    resp.getWriter().println(json);
-  }
-
-  static class Greeting {
-    String name;
-    long allowance;
-  }
+        resp.getWriter().println("Next = " + next);
+        next++;
+    }
 }

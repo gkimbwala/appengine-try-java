@@ -18,31 +18,33 @@ package myapp;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import okhttp3.HttpUrl;
 
-import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class DemoServlet extends HttpServlet {
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-    resp.setContentType("text/plain");
+  public void doGet(HttpServletRequest reqest, HttpServletResponse response) throws IOException {
+    HttpUrl url = HttpUrl.parse(reqest.getRequestURL().toString());
+
+    response.setContentType("text/plain");
 
     Moshi moshi = new Moshi.Builder().build();
-    JsonAdapter<Greeting> jsonAdapter = moshi.adapter(Greeting.class);
+    JsonAdapter<AllowanceRate> jsonAdapter = moshi.adapter(AllowanceRate.class);
 
 
-    Greeting greeting = new Greeting();
-    greeting.name = "Bowie";
-    greeting.allowance = 500;
-    String json = jsonAdapter.toJson(greeting);
+    AllowanceRate allowanceRate = new AllowanceRate();
+    allowanceRate.name = "Bowie " + url.encodedPath();
+    allowanceRate.allowance = 500;
+    String json = jsonAdapter.toJson(allowanceRate);
 
-    resp.getWriter().println(json);
+    response.getWriter().println(json);
   }
 
-  static class Greeting {
+  static class AllowanceRate {
     String name;
     long allowance;
   }

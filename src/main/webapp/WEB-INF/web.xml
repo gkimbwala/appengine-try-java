@@ -5,12 +5,12 @@
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <servlet>
-        <servlet-name>demo</servlet-name>
-        <servlet-class>myapp.DemoServlet</servlet-class>
+        <servlet-name>allowance</servlet-name>
+        <servlet-class>myapp.AllowanceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>demo</servlet-name>
-        <url-pattern>/demo</url-pattern>
+        <servlet-name>allowance</servlet-name>
+        <url-pattern>/allowance/*</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>count</servlet-name>
@@ -19,6 +19,14 @@
     <servlet-mapping>
         <servlet-name>count</servlet-name>
         <url-pattern>/count</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>chore</servlet-name>
+        <servlet-class>myapp.ChoreServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>chore</servlet-name>
+        <url-pattern>/chore</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

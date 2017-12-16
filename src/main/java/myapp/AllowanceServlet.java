@@ -24,11 +24,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class DemoServlet extends HttpServlet {
+public class AllowanceServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest reqest, HttpServletResponse response) throws IOException {
     HttpUrl url = HttpUrl.parse(reqest.getRequestURL().toString());
+    String name = url.pathSegments().get(1);
 
     response.setContentType("text/plain");
 
@@ -37,8 +39,12 @@ public class DemoServlet extends HttpServlet {
 
 
     AllowanceRate allowanceRate = new AllowanceRate();
-    allowanceRate.name = "Bowie " + url.encodedPath();
+    allowanceRate.name = name.toUpperCase();
     allowanceRate.allowance = 500;
+
+    // TODO: hook up Guice or dagger or something so we don't need this gross hack.
+    List<String> chores = FakeAllowanceDb.INSTANCE.getAllChores(name);
+    allowanceRate.chores = chores;
     String json = jsonAdapter.toJson(allowanceRate);
 
     response.getWriter().println(json);
@@ -47,5 +53,6 @@ public class DemoServlet extends HttpServlet {
   static class AllowanceRate {
     String name;
     long allowance;
+    List<String> chores;
   }
 }

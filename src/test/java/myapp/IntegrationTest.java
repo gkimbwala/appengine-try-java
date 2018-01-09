@@ -19,8 +19,8 @@ public class IntegrationTest {
     @Test @Ignore
     public void name() throws Exception {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8080/")
-//                 .baseUrl("https://allowance-182916.appspot.com/")
+  //              .baseUrl("http://localhost:8080/")
+                .baseUrl("https://allowance-182916.appspot.com")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 

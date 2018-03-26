@@ -4,31 +4,15 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
-    <servlet>
-        <servlet-name>allowance</servlet-name>
-        <servlet-class>myapp.AllowanceServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>allowance</servlet-name>
-        <url-pattern>/allowance/*</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>count</servlet-name>
-        <servlet-class>myapp.CountServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>count</servlet-name>
-        <url-pattern>/count</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>chore</servlet-name>
-        <servlet-class>myapp.ChoreServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>chore</servlet-name>
-        <url-pattern>/chore</url-pattern>
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>myapp.GuiceServletConfig</listener-class>
+    </listener>
 </web-app>

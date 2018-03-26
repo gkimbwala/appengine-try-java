@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SignUpServlet extends HttpServlet {
+public class AddChildServlet extends HttpServlet {
     @Inject
     AllowanceService allowanceService;
     @Inject
@@ -25,27 +25,25 @@ public class SignUpServlet extends HttpServlet {
         try (BufferedSource source = Okio.buffer(Okio.source(req.getInputStream()));
              BufferedSink sink = Okio.buffer(Okio.sink(resp.getOutputStream()))) {
 
-            JsonAdapter<SignUpRequest> requestAdapter = moshi.adapter(SignUpRequest.class);
-            SignUpRequest request = requestAdapter.fromJson(source);
+            JsonAdapter<AddChildRequest> requestAdapter = moshi.adapter(AddChildRequest.class);
+            AddChildRequest request = requestAdapter.fromJson(source);
 
-            UserId userId = allowanceService.signUp(request.name);
+            ChildId childId = allowanceService.addChild(new UserId(request.userId), request.name);
 
-            SignUpResponse response = new SignUpResponse();
-            response.userId = userId.userId;
+            AddChildResponse response = new AddChildResponse();
+            response.childId = childId.childId;
 
-            JsonAdapter<SignUpResponse> responseAdapter = moshi.adapter(SignUpResponse.class);
+            JsonAdapter<AddChildResponse> responseAdapter = moshi.adapter(AddChildResponse.class);
             responseAdapter.toJson(sink, response);
         }
     }
 
-    // this object is passed by the Android App to the server
-    static class SignUpRequest {
+    static class AddChildRequest {
+        String userId;
         String name;
     }
 
-    static class SignUpResponse {
-        String userId;
+    static class AddChildResponse {
+        String childId;
     }
-
 }
-

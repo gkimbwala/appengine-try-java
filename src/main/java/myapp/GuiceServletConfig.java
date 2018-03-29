@@ -16,6 +16,8 @@ public class GuiceServletConfig extends GuiceServletContextListener {
             protected void configureServlets() {
                 serve("/SignUp").with(SignUpServlet.class);
                 serve("/AddChild").with(AddChildServlet.class);
+                serve("/AddChore").with(AddChoreServlet.class);
+                serve("/SubmitChore").with(SubmitChoreServlet.class);
                 bind(AllowanceService.class).to(GcdAllowanceService.class);
                 bind(Moshi.class).toInstance(new Moshi.Builder().build());
             }

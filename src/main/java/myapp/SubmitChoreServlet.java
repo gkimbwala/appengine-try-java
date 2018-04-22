@@ -8,13 +8,14 @@ import okio.BufferedSource;
 import okio.Okio;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
+@Singleton
 public class SubmitChoreServlet extends HttpServlet {
     @Inject
     AllowanceService allowanceService;
@@ -29,10 +30,10 @@ public class SubmitChoreServlet extends HttpServlet {
             JsonAdapter<SubmitChoreRequest> requestAdapter = moshi.adapter(SubmitChoreServlet.SubmitChoreRequest.class);
             SubmitChoreServlet.SubmitChoreRequest request = requestAdapter.fromJson(source);
 
-            ChoreId choreId = allowanceService.submitChore(new UserId(request.userId), request.name);
+            Chore chore = allowanceService.submitChore(new UserId(request.userId), new ChoreId(request.choreId));
 
             SubmitChoreServlet.SubmitChoreResponse response = new SubmitChoreServlet.SubmitChoreResponse();
-            response.choreId = choreId.choreId;
+            response.chore = chore;
 
             JsonAdapter<SubmitChoreServlet.SubmitChoreResponse> responseAdapter = moshi.adapter(SubmitChoreServlet.SubmitChoreResponse.class);
             responseAdapter.toJson(sink, response);
@@ -42,10 +43,10 @@ public class SubmitChoreServlet extends HttpServlet {
 
     static class SubmitChoreRequest {
         String userId;
-        String name;
+        String choreId;
     }
 
     static class SubmitChoreResponse {
-        String choreId;
+        Chore chore;
     }
 }

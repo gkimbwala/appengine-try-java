@@ -1,7 +1,5 @@
 package myapp;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 import java.util.List;
 
 public interface AllowanceService {

@@ -17,10 +17,12 @@
 package myapp;
 
 import java.io.IOException;
+import javax.inject.Singleton;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Singleton
 public class CountServlet extends HttpServlet {
     int next = 1000;
 

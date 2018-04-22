@@ -10,7 +10,8 @@ public class GcdAllowanceService implements AllowanceService {
 
     @Override
     public ChildId addChild(UserId userId, String childName) {
-        return null;
+        System.out.println("Adding child "+childName + " for " +userId);
+        return new ChildId("c1");
     }
 
     @Override
